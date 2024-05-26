@@ -1,0 +1,44 @@
+<%- include ('../partials/_header.ejs')  %> 
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 lead">
+      <img src="https://learn.gitam.edu/theme/image.php/gitam/theme/1710744240/favicon" alt="" style="height: 2.5em; width: 2.5em;" class="img-thumbnail rounded-circle">
+      GITAM Book Store
+    </span>
+    <span>
+      <% if(typeof user === 'undefined'){ %>
+          <a href="/users/login" class="btn btn-sm btn-success">Login</a>
+      <% } else{%>
+          <span class="lead mr-2 capital user-name-home"><%= user.name  %> </span>
+          <a href="/users/dashboard" class="btn btn-sm btn-success d-inline">Go to Dashboard</a>
+      <% } %>
+      <% if(typeof user !== 'undefined' && user.role === 'admin'){ %>    
+        <a href="/books/new" class="btn btn-sm btn-primary">Add a New Book</a>
+      <% } %> 
+    </span>
+  </nav>
+  <div class="container-fluid mb-4">
+    <%- include ('../partials/_msg.ejs')  %> 
+    <div class="jumbotron text-center my-1 intro">
+     <div>
+       <h1 class="display-4 ml-2" style="color: aliceblue; font-weight: 400;">GITAM Book Store</h1>
+       <p class="lead ml-2" style="color: aliceblue; font-weight: 400;">View our hand-picked Tech Books from all over World</p>
+      </div>
+    </div>
+    <br>
+    <div class="container-fluid mb-4 home-books">
+      <% books.forEach(book => { %>
+        <div class="card" style="width: 18rem; position: relative;">
+          <a href="/books/view/<%= book._id %> ">
+          <img  style="height: 27rem;" src="<%= book.image  %> " class="card-img-top" alt="...">
+          <div class="card-body" style="background-color:aliceblue">
+            <h5 class="card-title" style="color: black;"><%= book.title %></h5>
+            <h3 class="lead text-danger p-0">Price: ₹ <%= book.price %></h3>
+            <hr class="my-2">
+            <a href="/books/view/<%= book._id %> " class="btn btn-primary">Book Details</a>
+          </a>
+          </div>
+      </div>
+     <% }) %> 
+    </div>
+  </div>
+<%- include ('../partials/_footer.ejs') %> 
